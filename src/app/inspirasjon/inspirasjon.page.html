@@ -1,0 +1,95 @@
+<ion-header  class="menu" class="ion-no-border">
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+  <div style="background-color:#5C8298 !important; height: 74px; text-align: center; vertical-align: middle;">
+       <ion-text class="textHeader"><ion-icon name="medkit" style="width:30px; height:30px; padding-right:10px" ></ion-icon>Inspirajon</ion-text>
+    </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <div>
+      <ion-searchbar placeholder="Hva leter du etter?" inputmode="text"  [debounce]="250" (ionChange)="filtrarArticulos($event)"></ion-searchbar>
+    </div>
+    
+  <div style="max-width: 100%; text-align: center;">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slide *ngFor="let tags of tag" style="width:118px; margin-right: 5px; margin-left: 5px; padding: 0; ">
+        <ion-col>
+          <ion-button color="light" size="full" block   (click)="filtrarTag(tags.tag)" >{{ tags.tag}}</ion-button>
+       
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+
+
+
+  <ion-grid fixed>
+  <ion-row>
+
+    <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12" style="padding: 0px;"
+              *ngFor="let noticia of noticias | async | filtro: searchTerm: 'title' ; let i = index">
+
+   <ion-card>
+
+  <ion-card-header>
+    <ion-card-subtitle>
+    
+      <div class="noticia-more">
+        <!-- 
+        <ion-button fill="clear"
+                    (click)="lanzarMenu()">
+          <ion-icon slot="icon-only" 
+                    name="more"></ion-icon>
+        </ion-button>
+        -->
+      </div>
+
+    </ion-card-subtitle>
+    <ion-card-title (click)="abrirNoticia()">{{ noticia.title }} </ion-card-title>
+  </ion-card-header>
+
+  <ion-img [src]="noticia?.img"
+            (click)="abrirNoticia()"
+            class="animated fadeIn fast"
+            ></ion-img>
+
+  <ion-card-content>
+    <p [innerHTML]="noticia?.texto | slice:0:100">
+      ...
+    </p>
+  </ion-card-content>
+
+</ion-card>
+    
+    </ion-col>
+
+  </ion-row>
+</ion-grid>
+
+    <!-- <app-noticias [noticias]="noticias"></app-noticias> -->
+
+    
+    <ion-card *ngFor="let noticia of noticias | async; let i = index" style="padding-left: 0px; flex-direction: row;" size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"> 
+      <ion-row >
+        <ion-col col style="padding: 0px;" size=4 >
+         <!-- <ion-img [src]="card.img" style="width:162px; height:130px; object-fit: cover; align-self: flex-start; padding-right: 0px;"></ion-img>-->
+          <ion-img [src]="noticia?.img"></ion-img>
+        </ion-col>
+        <ion-col col style="padding: 0px;">
+          <ion-card-content style="font-size:13px; object-position: left; display: flex; align-self: flex-start; text-align: left; padding-bottom: 0px;"  (click)="gotoNoticia(noticia)"  [innerHTML]="noticia?.texto | slice:0:100"> ...</ion-card-content>
+    
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+  </div>
+
+
+  </div>
+</ion-content>

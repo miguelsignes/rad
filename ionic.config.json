@@ -1,0 +1,7 @@
+{
+  "name": "rad",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

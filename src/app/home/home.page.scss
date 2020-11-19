@@ -1,0 +1,92 @@
+ion-menu-button {
+   // color: var(--ion-color-danger);
+  color: '#fff';
+  
+  }
+  
+  #container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #5C8298;
+  }
+  
+  #container strong {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  #container p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #8c8c8c;
+    margin: 0;
+  }
+  
+  #container a {
+    text-decoration: none;
+  }
+
+  .menu {
+    height: 120px;
+    background-color: #5C8298 !important;
+  }
+
+  .textHeader {
+  
+    color:#ffffff !important;
+    font-size: 57px;
+    font-weight: bold;
+    font-family: OpenSans;
+  
+  }
+
+  .labelFav {
+    font-size: 12px;
+    font-weight: bold;
+    //font-family: 'OpenSans';
+  }
+.labelText {
+  font-size: 12px;
+  font-weight: bold;
+  display:flex;
+  margin-top:5px;
+}
+
+.scrollCards {
+  min-height: 400px;
+  height:500px;
+  background-color: #F4F4F4 !important;
+ 
+  
+}
+
+
+.listCards {
+  margin-top: 20px;
+  margin-left:10px;
+  margin-right:10px;
+}
+.cardCat {
+
+  border-radius: 0px !important;
+  overflow: hidden;
+  position:relative;
+  top:20px;
+ 
+}
+.cardText {
+
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: OpenSans;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
