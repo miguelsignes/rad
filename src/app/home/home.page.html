@@ -6,8 +6,9 @@
 
   </ion-toolbar>
 
-  <div style="background-color:#5C8298 !important; height: 104px; text-align: center;">
-       <ion-text class="textHeader"><ion-icon name="star" style="width:35px; height:35px;"></ion-icon>RÅD</ion-text>
+  <div style="background-color:#5C8298 !important; height: 104px; text-align: center;  vertical-align: middle;">
+ <!--   <ion-text class="textHeader"><ion-icon name="star" style="width:35px; height:35px;" style="color:#bbd336"></ion-icon>RÅD</ion-text> -->
+    <ion-img [src]='logo' style="width:180px; margin:0 auto"></ion-img>
     </div>
 </ion-header>
 
@@ -19,7 +20,7 @@
   </ion-header>
   -->
   <ion-content [fullscreen]="true">
-  <div>
+  <div style="margin-top:5px;">
     <ion-grid>
       <ion-row>
 <ion-col size="10"><ion-label class="labelFav">Favoritter</ion-label></ion-col>

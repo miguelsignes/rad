@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KontaktPage implements OnInit {
 
+  imgSrc:String = '../../../assets/images/paris.jpg';
+  
   constructor() { }
 
   ngOnInit() {

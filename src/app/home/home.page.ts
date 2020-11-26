@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 // FIREBASE SERVICE
 import { FirestoreService } from '../servicios/firestore.service';
 import { AngularFirestore, AngularFirestoreCollection, validateEventsArray } from '@angular/fire/firestore';
-
+import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Subject } from 'rxjs';
 // IONIC STORAGE
 import { Storage } from '@ionic/storage';
@@ -12,6 +12,8 @@ import { Article } from '../interfaces/interfaces';
 
 import { NavparamService } from '../navparam.service';
 import { Router } from '@angular/router';
+import * as firebase from "firebase/app";
+import 'firebase/auth';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -23,7 +25,7 @@ export class HomePage implements OnInit {
     0,1,2,3,4,5,6
   ]
 
-
+  logo: string = '../../assets/SAFO_logo_farge.png';
   public appPages = [
 
     {
@@ -58,7 +60,7 @@ export class HomePage implements OnInit {
   public nameSubject = new BehaviorSubject<String>('Loggin IN');
 
   constructor(public dataLocalService: DataLocalService,
-    public storage: Storage,    private navParamService: NavparamService,  private router: Router) { }
+    public storage: Storage,    private navParamService: NavparamService,  private router: Router, private afu: AngularFireAuth) { }
 
   ngOnInit() {
     
@@ -82,7 +84,28 @@ export class HomePage implements OnInit {
     }
     
   }
+  
+  isLoggedIn() {
+    
+    firebase.auth().onAuthStateChanged( function(user) {
+      if ( user ) {
+        console.log(firebase.auth().currentUser.uid)
+        return true
+      } else {
+        console.log('No existe usuario');
+        return false;
+      }
+    })
+
+  }
+
   async cargarFavoritos() {
+
+    //if (firebase.auth().currentUser)
+    
+    this.isLoggedIn();
+   
+    
     let favoritos = undefined;
     favoritos = await this.storage.get('favoritos');
     

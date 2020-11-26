@@ -19,6 +19,8 @@ export class DetailsPage implements OnInit {
   estrella = 'bookmark-outline';
   idx:string;
   existe:Boolean = false;
+  categoriIcon: String = 'star';
+
   constructor(private route: ActivatedRoute, private router: Router, private storage: Storage, public dataLocalService: DataLocalService,   private navParamService: NavparamService) { }
 
 
@@ -26,14 +28,22 @@ export class DetailsPage implements OnInit {
 
 
 
-    this.route.paramMap.subscribe(params => {
-     this.idx = params.get('idx');
-      console.log(this.idx);
+  this.route.paramMap.subscribe(params => {
+
+    let str = params.get('idx');
+    // Convertimos el backbutton en Mayuscula la primera letra
+    this.idx = str[0].toUpperCase()+str.slice(1);
+      
+
+     
    });
 
   this.data = this.navParamService.getNavData()
   console.log(this.data)
-
+  if (this.data.categoria == 'NAV') 
+  {
+    this.categoriIcon ="bookmark"
+  }
   this.cargarFavoritos()
   }
 
@@ -52,7 +62,6 @@ export class DetailsPage implements OnInit {
   }
 
   favorito() {
-
    
    // console.log(this.idx);
    // const existe = this.dataLocalService.guardarNoticia(this.data);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MenuController, Platform } from '@ionic/angular';
+import { MenuController, Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { FcmService } from './fcm.service';
@@ -10,8 +10,9 @@ import { Usuario } from './interfaces/interfaces';
 import { FirestoreService } from './servicios/firestore.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { menuController} from "@ionic/core"; 
+import { menuController } from "@ionic/core"; 
 import { UsuarioService } from './usuario.service';
+
 import { Observable } from 'rxjs';
 
 
@@ -22,15 +23,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   public selectedIndex = 0;
   private nameValue$: Observable<String>;
+  public myName:String = '';
+  public textValue:String = 'Loggin IN';
 
   public loginApp = 
     {
       title: 'Login',
       url: '/login'
     }
-  
+  public loginout = {
+    title: 'Log out',
+    url: '/logout'
+  }
   public appDoc = [
     {
       title: 'Om appen',
@@ -93,7 +100,8 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private fcmService: FcmService,
     private menu: MenuController,
-    private userService: UsuarioService
+    private userService: UsuarioService,
+    private navCtrl: NavController
   ) {
     this.initializeApp();
 
@@ -103,6 +111,8 @@ export class AppComponent implements OnInit {
     
     this.menu.close();
   }
+
+
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -114,12 +124,22 @@ export class AppComponent implements OnInit {
   }
 
   readStorageName() {
+
   this.userService.readStorage()
   }
+
+  
+
   ngOnInit() {
+
+
+
+
   this.readStorageName()
 
     this.nameValue$ = this.userService.nameSubject.asObservable();
+    this.nameValue$.subscribe(value => this.myName = value);
+    console.log('My NAME', this.myName);
    
   
 

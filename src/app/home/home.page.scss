@@ -41,11 +41,15 @@ ion-menu-button {
     font-size: 57px;
     font-weight: bold;
     font-family: OpenSans;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  
   
   }
 
   .labelFav {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     //font-family: 'OpenSans';
   }

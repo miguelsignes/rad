@@ -1,0 +1,99 @@
+ion-menu-button {
+    // color: var(--ion-color-danger);
+   color: '#fff';
+   
+   }
+
+   .menu {
+     height: 120px;
+     background-color: #5C8298 !important;
+   }
+ 
+   .textHeader {
+   
+     color:#ffffff !important;
+     font-size: 57px;
+     font-weight: bold;
+     font-family: OpenSans;
+   
+   }
+   .formclass {
+     width: 350px
+   }
+   .labelFav {
+     font-size: 12px;
+     font-weight: bold;
+     //font-family: 'OpenSans';
+   }
+ .labelText {
+   font-size: 12px;
+   font-weight: bold;
+   display:flex;
+   margin-top:5px;
+ }
+ 
+ .scrollCards {
+   min-height: 400px;
+   height:500px;
+   background-color: #F4F4F4 !important;
+  
+   
+ }
+ 
+ 
+ .listCards {
+   margin-top: 20px;
+   margin-left:10px;
+   margin-right:10px;
+ }
+ .inputText {
+   
+ 
+ height: 62px;
+
+ }
+ .cardCat {
+ 
+   border-radius: 1px !important;
+  padding:0px;
+   overflow: hidden;
+   position:relative;
+   top:20px;
+   text-align: center;
+   font-weight: bolder;
+ 
+  
+ }
+ .cardText {
+ 
+   display: block;
+   margin: 0 auto;
+   text-align: center;
+   font-size: 18px;
+   font-weight: bold;
+   font-family: OpenSans;
+   padding-top: 20px;
+   padding-bottom: 20px;
+ 
+ }
+
+ 
+
+.mainSlide, .mainSlide ion-slide {
+    width: 100%;
+    height: 100%;
+}
+
+img {
+    width: 120px;
+}
+
+.pick-avatar {
+    width: 80px;
+    opacity: 0.3;
+}
+
+.pick-avatar-seleccionado {
+    transition: opacity 0.5s linear;
+    opacity: 1 !important;
+}

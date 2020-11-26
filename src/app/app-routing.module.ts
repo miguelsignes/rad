@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./users/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'logout',
+    loadChildren: () => import('./users/logout/logout.module').then( m => m.LogoutPageModule)
   }
 ];
 

@@ -13,10 +13,12 @@ ion-menu-button {
   .textHeader {
    
     color:#ffffff !important;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     font-family: OpenSans;
-  
+    display: flex;
+    justify-content: center;
+    align-self: center;
   }
   
   

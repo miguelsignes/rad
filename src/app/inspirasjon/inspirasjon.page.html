@@ -5,15 +5,16 @@
     </ion-buttons>
 
   </ion-toolbar>
-
-  <div style="background-color:#5C8298 !important; height: 74px; text-align: center; vertical-align: middle;">
-       <ion-text class="textHeader"><ion-icon name="medkit" style="width:30px; height:30px; padding-right:10px" ></ion-icon>Inspirajon</ion-text>
+  <div  style="display: flex; align-self: center; justify-content: center; height: 74px; width: 100%; background-color:#5C8298 !important;">
+  <div>
+       <ion-text class="textHeader"><ion-icon name="medkit" style="width:30px; height:30px; padding-right:10px; display: inline-block;" ></ion-icon>Inspirajon</ion-text>
     </div>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <div>
+    <div style="margin-top: 6px; margin-bottom: 4px;">
       <ion-searchbar placeholder="Hva leter du etter?" inputmode="text"  [debounce]="250" (ionChange)="filtrarArticulos($event)"></ion-searchbar>
     </div>
     

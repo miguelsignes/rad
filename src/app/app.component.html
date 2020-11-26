@@ -2,19 +2,25 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-      <ion-icon  name="person-outline" class="icon_l" style="width: 18px; height: 18px; margin-left:12px; margin-right:12px; margin-top:12px;"></ion-icon><ion-label style="margin-top:12px;" (click)="openFirst()" routerDirection="root" [routerLink]="[loginApp.url]">{{nameValue$ | async}}</ion-label>
-        <ion-list id="inbox-list">
-          <ion-grid>
-            <ion-row style="display:flex; align-items: flex-start; margin-top: 41px;">
-              <ion-col size="1">
-                <ion-img style="width: 23px; height: 25px;" src="../assets/SAFO_estrella.png"></ion-img>
-              </ion-col>
+      <ion-icon  name="person-outline" class="icon_l" style="width: 18px; height: 18px; margin-left:12px; margin-right:12px; margin-top:12px;"></ion-icon>
+      <ion-label *ngIf="myName != textValue" style="margin-top:12px;" (click)="openFirst()" routerDirection="root" [routerLink]="[loginout.url]">{{nameValue$ | async}}</ion-label>
+      <ion-label *ngIf="myName == textValue" style="margin-top:12px;" (click)="openFirst()" routerDirection="root" [routerLink]="[loginApp.url]">{{nameValue$ | async}}</ion-label>
+      <div class="separator_top" ></div> 
+      <ion-list id="inbox-list">
+        <!--  <ion-grid>
+            <ion-row style="display:flex; align-items: center; margin-top: 41px; justify-content: center;">
               <ion-col>
-                <ion-text style="font-weight: 700; text-align: left; font-size: 28px;  margin-left: 14px;">RÅD</ion-text>
-              </ion-col>
+                -->
+                <div style="margin-top:42px; display: flex; align-self: center; justify-content: center;">
+                <ion-img style="width: 32px; height: 32px; display: flex; align-self: center; justify-content: center; margin-right: 10px;" src="../assets/SAFO_estrella.png"></ion-img>
+           
+        
+                <ion-text style="font-weight: 700; font-size: 42px; ">RÅD</ion-text>
+              </div>
+            <!--  </ion-col>
             </ion-row>
           </ion-grid>
-          
+          -->
         
         
           <div style="margin-bottom: 50px;"></div>
@@ -22,7 +28,7 @@
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ng-container *ngIf="i == 6 ">
               <div class="separator" ></div>
-              <ion-text style="font-size: 13px; font-family: 'OpenSans'; color: #8898AA; padding: 20px; margin-top:20px">DOCUMENTATION</ion-text>
+              <ion-text style="font-size: 13px; font-family: 'OpenSans'; color: #8898AA; padding: 20px; margin-top:20px">DOKUMENTASJON</ion-text>
             </ng-container>
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-outline'"></ion-icon>

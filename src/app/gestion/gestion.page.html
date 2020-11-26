@@ -13,7 +13,7 @@
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <div>
+    <div style="margin-top: 6px; margin-bottom: 4px;">
       <ion-searchbar placeholder="Hva leter du etter?" inputmode="text"  [debounce]="250" (ionChange)="filtrarArticulos($event)"></ion-searchbar>
     </div>
     
@@ -51,7 +51,7 @@
       </div>
 
     </ion-card-subtitle>
-    <ion-card-title >{{ noticia.title }} </ion-card-title>
+    <ion-card-title style="font-size: 24px;">{{ noticia.title }} </ion-card-title>
   </ion-card-header>
 
   <ion-img [src]="noticia?.img"
