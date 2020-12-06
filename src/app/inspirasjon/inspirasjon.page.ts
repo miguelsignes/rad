@@ -19,9 +19,8 @@ import { Router } from '@angular/router';
 
 import { NavparamService } from '../navparam.service';
 //export interface Card { title: string; texto: string; categoria: string; img: string; insertada: Date; tag: Object; text: string  }
+
 export interface CardId extends Article { id: string; }
-
-
 export interface Users { nombre: string, email: string, favoritos: Object }
 
 

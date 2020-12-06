@@ -49,7 +49,7 @@ ion-menu-button {
   }
 
   .labelFav {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     //font-family: 'OpenSans';
   }
@@ -93,4 +93,8 @@ ion-menu-button {
   padding-top: 20px;
   padding-bottom: 20px;
 
+}
+
+ion-menu-button {
+  font-size: 42px !important;
 }

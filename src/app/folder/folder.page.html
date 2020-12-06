@@ -36,7 +36,7 @@
           <ion-img [src]="noticia?.img"></ion-img>
         </ion-col>
         <ion-col col style="padding: 0px;">
-          <ion-card-content style="font-size:13px;  padding-bottom: 0px; text-align: left;"  (click)="gotoNoticia(noticia)" [innerHTML]="noticia?.texto | slice:0:100 "></ion-card-content>
+          <ion-card-content style="font-size:14px; font-weight: bold; padding-bottom: 0px; text-align: left;"  (click)="gotoNoticia(noticia)" [innerHTML]="noticia?.title | slice:0:100 "></ion-card-content>
        <!--   <div style="text-align: right; padding-right: 20px;"><ion-icon [name]="estrella" (click)="clickFav(noticia)"></ion-icon></div> -->
         </ion-col>
       </ion-row>

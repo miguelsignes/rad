@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   private nameValue$: Observable<String>;
   public myName:String = '';
-  public textValue:String = 'Loggin IN';
+  public textValue:String = 'Logg inn';
 
   public loginApp = 
     {
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
   ]
   public appPages = [
     {
-      title: 'Home',
+      title: 'Hjem',
       url: '/home',
       icon: 'home'
     },

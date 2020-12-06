@@ -49,15 +49,15 @@ export class HomePage implements OnInit {
       icon: 'medkit'
     },
     {
-      title: 'Favoritter',
-      url: '/fav',
-      icon: 'bookmark'
+      title: 'Kontakt oss',
+      url: '/kontakt',
+      icon: 'mail'
     }
   ];
   
   noticias: Article[] = [];
 
-  public nameSubject = new BehaviorSubject<String>('Loggin IN');
+  public nameSubject = new BehaviorSubject<String>('Logg inn');
 
   constructor(public dataLocalService: DataLocalService,
     public storage: Storage,    private navParamService: NavparamService,  private router: Router, private afu: AngularFireAuth) { }

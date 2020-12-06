@@ -27,7 +27,7 @@
       </ion-slide>
     </ion-slides>
 
-
+<!--
 
   <ion-grid fixed>
   <ion-row>
@@ -41,13 +41,7 @@
     <ion-card-subtitle>
     
       <div class="noticia-more">
-        <!-- 
-        <ion-button fill="clear"
-                    (click)="lanzarMenu()">
-          <ion-icon slot="icon-only" 
-                    name="more"></ion-icon>
-        </ion-button>
-        -->
+
       </div>
 
     </ion-card-subtitle>
@@ -69,18 +63,18 @@
 
   </ion-row>
 </ion-grid>
-
+-->
     <!-- <app-noticias [noticias]="noticias"></app-noticias> -->
 
     
-    <ion-card *ngFor="let noticia of noticias | async; let i = index" style="padding-left: 0px; flex-direction: row;" size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"> 
+    <ion-card *ngFor="let noticia of noticias | async |  filtro: searchTerm: 'title'; let i = index" style="padding-left: 0px; flex-direction: row;" size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"> 
       <ion-row >
         <ion-col col style="padding: 0px;" size=4 >
          <!-- <ion-img [src]="card.img" style="width:162px; height:130px; object-fit: cover; align-self: flex-start; padding-right: 0px;"></ion-img>-->
           <ion-img [src]="noticia?.img"></ion-img>
         </ion-col>
         <ion-col col style="padding: 0px;">
-          <ion-card-content style="font-size:13px; object-position: left; display: flex; align-self: flex-start; text-align: left; padding-bottom: 0px;" (click)="gotoNoticia(noticia)" [innerHTML]="noticia?.texto | slice:0:100"> ...</ion-card-content>
+          <ion-card-content style="font-size:14px; font-weight:bold; object-position:  left; display: flex; align-self: flex-start; text-align: left; padding-bottom: 0px;" (click)="gotoNoticia(noticia)" [innerHTML]="noticia?.title | slice:0:100"> ...</ion-card-content>
       <!--    <div style="text-align: right; padding-right: 20px;"> <ion-icon name="bookmark-outline" [style.color]="noticia?.texto ? '#00CC00' : '#FF0000'" (click)="clickFav(noticia)"></ion-icon></div>-->
         </ion-col>
       </ion-row>

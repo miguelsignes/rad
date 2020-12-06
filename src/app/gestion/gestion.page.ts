@@ -126,6 +126,7 @@ leerTags() {
   gotoNoticia(noticia: Article) {
 
     this.navParamService.setNavData(noticia);
+    console.log(noticia);
     this.router.navigate(['details/Helseteforak'])
 
   }

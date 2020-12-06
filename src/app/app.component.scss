@@ -60,6 +60,7 @@ ion-menu.md ion-item.selected {
 
 ion-menu.md ion-item.selected ion-icon {
   color: white;
+ 
 }
 
 ion-menu.md ion-item ion-icon {
@@ -94,6 +95,7 @@ ion-menu.ios ion-item {
 
 ion-menu.ios ion-item.selected ion-icon {
   color: white;
+ 
  //color: #5C8298;
 }
 
@@ -102,6 +104,8 @@ ion-menu.ios ion-item ion-icon {
     color: #73849a;
   --padding-start: 16px;
   --padding-end: 0px;
+
+
 }
 
 ion-menu.ios ion-list#labels-list ion-list-header {

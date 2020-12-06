@@ -18,7 +18,7 @@ export class UsuarioService {
 
   token:string = null;
 
-  public nameSubject = new BehaviorSubject<String>('Loggin IN');
+  public nameSubject = new BehaviorSubject<String>('Logg inn');
 
   constructor(private afu: AngularFireAuth, private navCtrl: NavController) {
 
@@ -43,7 +43,7 @@ export class UsuarioService {
     localStorage.removeItem('name');
     localStorage.removeItem('token');
     
-   this.nameSubject.next('Loggin IN');
+   this.nameSubject.next('Logg inn');
 
     
     this.navCtrl.navigateRoot('/home', { animated: true })
@@ -56,7 +56,7 @@ export class UsuarioService {
         
         localStorage.removeItem('token');
         localStorage.removeItem('name');
-        this.nameSubject.next('Loggin IN');
+        this.nameSubject.next('Logg inn');
         console.log(this.nameSubject);
       })
   }
@@ -71,7 +71,7 @@ export class UsuarioService {
       result.user.getIdToken().then( (token)=> {
       
         localStorage.setItem('token', token);
-        this.nameSubject.next('Logged Out');
+        this.nameSubject.next('Logg ut');
         localStorage.setItem('name', result.user.displayName);
       });
    
