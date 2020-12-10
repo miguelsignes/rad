@@ -9,6 +9,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 // IONIC STORAGE
 import { Storage } from '@ionic/storage';
 import { Article } from '../interfaces/interfaces';
+import { map } from 'rxjs/operators';
+import { Observable, ObservedValueOf } from 'rxjs';
 
 import { NavparamService } from '../navparam.service';
 import { Router } from '@angular/router';
@@ -20,6 +22,8 @@ import 'firebase/auth';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+  private cardCollection: AngularFirestoreCollection<Article>;
 
   cards = [
     0,1,2,3,4,5,6
@@ -56,16 +60,19 @@ export class HomePage implements OnInit {
   ];
   
   noticias: Article[] = [];
+  //private noticias: AngularFirestoreCollection<Article>;
 
   public nameSubject = new BehaviorSubject<String>('Logg inn');
 
   constructor(public dataLocalService: DataLocalService,
-    public storage: Storage,    private navParamService: NavparamService,  private router: Router, private afu: AngularFireAuth) { }
+    public storage: Storage,    private navParamService: NavparamService,  private router: Router, private afu: AngularFireAuth, private afs:AngularFirestore) { }
 
   ngOnInit() {
     
     this.cargarFavoritos()
-
+    this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
+      return ref.limit(6)
+    });
 
   }
 
@@ -109,10 +116,29 @@ export class HomePage implements OnInit {
     let favoritos = undefined;
     favoritos = await this.storage.get('favoritos');
     
-      if ( favoritos) {
+      if ( favoritos.length > 0 ) {
       this.noticias = favoritos;
+      } else {
+
+        this.cardCollection.snapshotChanges().pipe(
+          map(actions => actions.map( a=> {
+            const data = a.payload.doc.data() as Article;
+            const id = a.payload.doc.id;
+        
+            return { id, ...data}
+          }))
+        ).subscribe( (data) => {
+          console.log(data);
+          this.noticias = data;
+        })
+    
+      }
+   
+
     }
-    }
+
+
+    
 
 
   

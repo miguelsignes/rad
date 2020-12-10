@@ -18,6 +18,8 @@ import { DataLocalService } from '../servicios/data-local.service';
 import { Router } from '@angular/router';
 
 import { NavparamService } from '../navparam.service';
+
+
 //export interface Card { title: string; texto: string; categoria: string; img: string; insertada: Date; tag: Object; text: string  }
 
 export interface CardId extends Article { id: string; }
@@ -56,17 +58,44 @@ export class InspirasjonPage implements OnInit {
      private router: Router,
      ) {
 
-      this.cardCollection = this.afs.collection<Article>('articulos');
+      this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
+        return ref.where('categoria', '==', 'Inspirasjon')
+      });
       this.userCollection = this.afs.collection<Users>('Users');
 
       }
-leerTags() {
-        this.firestoreService.consultar("tags").subscribe( (data) => {
+    
+      leerTags() {
+        /*
+        this.firestoreService.consultar("articulos/tag").subscribe( (data) => {
           this.tag = data;
         })
-    
-      }
-    leerNoticias() {
+        */
+       this.cardCollection.snapshotChanges().pipe(
+          map(actions => actions.map( a=> {
+            const data = a.payload.doc.data() as Article;
+            const tag = a.payload.doc.data().tag;
+           
+            return { tag }
+          }))
+        ).subscribe((data) => {
+          
+          data.map( (data)=> {
+         
+          
+            this.tag = data.tag;
+            /*
+            if ( data.tag.length > 0 ) {
+              this.tag.push('Reset');
+            }
+            */
+       
+         })
+          
+        });
+          }
+          
+  leerNoticias() {
       this.noticias = this.cardCollection.snapshotChanges().pipe(
         map(actions => actions.map( a=> {
           const data = a.payload.doc.data() as Article;
@@ -101,7 +130,34 @@ leerTags() {
 
   filtrarTag(event) {
 
-    this.noticias = this.afs.collection('articulos', ref=>
+    const exits = this.tag.includes('Reset');
+   // console.log(exits);
+   //this.tag.push('Reset');
+   //  this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+    if (exits) {
+     // this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+      this.tag = this.tag.slice(0, this.tag.length -1);
+    }
+    if (event != 'Reset') {
+      this.tag.push('Reset');
+      //this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+    }
+    if ( event == 'Reset' ) {
+                
+    // this.tag = this.tag.slice(0, this.tag.length -1);
+   this.noticias = this.afs.collection('articulos', ref => 
+       ref.where('categoria', '==', 'Inspirasjon')
+     ).snapshotChanges()
+     .pipe(
+      map(actions => actions.map( a=> {
+        const data = a.payload.doc.data() as Article;
+        const id = a.payload.doc.id;
+        return { id, ...data}
+      }))
+      
+    )
+    } else { 
+    this.noticias = this.afs.collection('articulos', ref =>
     ref.where('tag','array-contains',event))
     .snapshotChanges()
     .pipe(
@@ -111,7 +167,7 @@ leerTags() {
         return { id, ...data}
       }))
     );
-
+    }
   }
 
 

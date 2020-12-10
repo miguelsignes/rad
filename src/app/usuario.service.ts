@@ -17,10 +17,11 @@ import { NavController } from '@ionic/angular';
 export class UsuarioService {
 
   token:string = null;
+  data: any = [];
 
   public nameSubject = new BehaviorSubject<String>('Logg inn');
 
-  constructor(private afu: AngularFireAuth, private navCtrl: NavController) {
+  constructor(private afu: AngularFireAuth, private navCtrl: NavController, private afs: AngularFirestore) {
 
    
    }
@@ -67,9 +68,9 @@ export class UsuarioService {
 
     return this.afu.signInWithEmailAndPassword(data.email,data.password)
     .then( result => {
+
       console.log(result);
       result.user.getIdToken().then( (token)=> {
-      
         localStorage.setItem('token', token);
         this.nameSubject.next('Logg ut');
         localStorage.setItem('name', result.user.displayName);
@@ -90,13 +91,37 @@ export class UsuarioService {
       result.user.updateProfile({
         displayName:data.name
       });
+    
       result.user.getIdToken().then( (token)=> {
+
         localStorage.setItem('token', token);
         localStorage.setItem('name', result.user.displayName);
-      })
-   
+     
+      
+      });
+      console.log(email);
+      console.log(data.email);
+      this.createUserStats(result.user.uid, email);
 
     })
+  }
+
+  createUserStats(id, email) {
+   
+    console.log(id);
+    console.log(email);
+
+    this.data.email = email;
+    this.data.isAdmin = false;
+   
+    this.afs.collection('userProfile').doc(id).set(Object.assign({}, this.data))
+    .then( (response) => {
+      console.log('todo ok');
+    }).catch( (error) => {
+      console.log('Ha ocurrido un error', error)
+    })
+
+
   }
 
 }

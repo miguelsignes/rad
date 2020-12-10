@@ -58,7 +58,9 @@ export class GestionPage implements OnInit {
      private router: Router,
      ) {
 
-      this.cardCollection = this.afs.collection<Article>('articulos');
+      this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
+        return ref.where('categoria', '==', 'Helseforetak')
+      });
       this.userCollection = this.afs.collection<Users>('Users');
 
       }

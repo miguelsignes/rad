@@ -63,7 +63,9 @@ export class FolderPage implements OnInit {
      ) {
    
 
-    this.cardCollection = this.afs.collection<Article>('articulos');
+    this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
+      return ref.where('categoria', '==', 'Kommuner/fylkeskommuner')
+    });
     this.userCollection = this.afs.collection<Users>('Users');
    
    }
