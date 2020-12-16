@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { KontaktPageRoutingModule } from './kontakt-routing.module';
 
 import { KontaktPage } from './kontakt.page';
-
+import { PipesModule } from '../../pipes/pipes.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    KontaktPageRoutingModule
+    KontaktPageRoutingModule,
+    PipesModule
   ],
   declarations: [KontaktPage]
 })

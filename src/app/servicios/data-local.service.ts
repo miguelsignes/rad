@@ -42,10 +42,10 @@ export class DataLocalService {
 
     if ( existe ) {
         this.noticias = this.noticias.filter( noti => noti.id !== noticia.id);
-        mensaje = 'Eliminado de Favoritos'
+        mensaje = 'Fjernet fra favoritter'
     } else {
       this.noticias.push(noticia);
-      mensaje = 'Añadido a Favoritos'
+      mensaje = 'Ingen favoritter lagret'
     }
     this.presentToast(mensaje);
     this.storage.set('favoritos', this.noticias);

@@ -14,6 +14,7 @@ import { Article } from '../interfaces/interfaces';
 
 import { DataLocalService } from '../servicios/data-local.service';
 import { NavController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 import { NavparamService } from '../navparam.service';
@@ -30,13 +31,16 @@ export class FavsPage implements OnInit {
 
   noticias: Article[] = [];
   title:string;
-
+  tag:any = [];
+  searchTerm: string = "";
+  
   constructor(private activatedRoute: ActivatedRoute, 
      public dataLocalService: DataLocalService,
      public storage: Storage,
      private navCtrl: NavController,
      private router: Router,
-     private navParamService: NavparamService
+     private navParamService: NavparamService,
+     private afs:AngularFirestore
      ) {
    
    }
@@ -48,7 +52,7 @@ export class FavsPage implements OnInit {
 //    this.router.navigate(['details/'+ {'noticia':noticia }])
 
     this.navParamService.setNavData(noticia);
-    this.router.navigate(['details/Favoritos'])
+    this.router.navigate(['details/Fav'])
 
   }
   ngOnInit() {
@@ -68,6 +72,16 @@ export class FavsPage implements OnInit {
 
 
 
+  
+  
+    filtrarArticulos(event) {
 
+    
+      this.searchTerm = event.detail.value;
+      console.log(this.searchTerm);
+       
+  
+    }
+  
 
 }

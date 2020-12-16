@@ -20,13 +20,11 @@ export class DetailsPage implements OnInit {
   idx:string;
   existe:Boolean = false;
   categoriIcon: String = 'star';
-
+  favoritos: any = [];
   constructor(private route: ActivatedRoute, private router: Router, private storage: Storage, public dataLocalService: DataLocalService,   private navParamService: NavparamService) { }
 
 
   ngOnInit() {
-
-
 
   this.route.paramMap.subscribe(params => {
 
@@ -34,15 +32,13 @@ export class DetailsPage implements OnInit {
     // Convertimos el backbutton en Mayuscula la primera letra
     this.idx = str[0].toUpperCase()+str.slice(1);
       
-
-     
    });
 
   this.data = this.navParamService.getNavData()
   console.log(this.data)
   if (this.data.categoria == 'NAV') 
   {
-    this.categoriIcon ="bookmark"
+    this.categoriIcon = "bookmark"
   }
   this.cargarFavoritos()
   }
@@ -63,6 +59,7 @@ export class DetailsPage implements OnInit {
 
   favorito() {
    
+    
    // console.log(this.idx);
    // const existe = this.dataLocalService.guardarNoticia(this.data);
    // console.log(existe);
@@ -71,11 +68,11 @@ export class DetailsPage implements OnInit {
 
 
 async cargarFavoritos() {
-  let favoritos = undefined;
-  favoritos = await this.storage.get('favoritos');
+  
+  this.favoritos = await this.storage.get('favoritos');
   
   
-  for ( const noti of favoritos) {
+  for ( const noti of this.favoritos) {
 
     if ( noti.id === this.data.id) 
     {

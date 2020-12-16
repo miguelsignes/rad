@@ -8,13 +8,14 @@ import { FolderPageRoutingModule } from './folder-routing.module';
 
 import { FolderPage } from './folder.page';
 import { ComponentsModule } from '../components/components.module';
-
+import { PipesModule } from '../pipes/pipes.module';
 @NgModule({
   imports: [
     ComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,
+    PipesModule,
     FolderPageRoutingModule
   ],
   declarations: [FolderPage]

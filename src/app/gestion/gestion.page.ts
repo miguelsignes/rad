@@ -36,8 +36,7 @@ export class GestionPage implements OnInit {
   public folder: string;
   searchTerm: string = "";
   public items: any;
-  tag:any;
-
+  tag:any = [];
   public favoritos = [];
 
 
@@ -64,12 +63,38 @@ export class GestionPage implements OnInit {
       this.userCollection = this.afs.collection<Users>('Users');
 
       }
-leerTags() {
-        this.firestoreService.consultar("tags").subscribe( (data) => {
+      leerTags() {
+        /*
+        this.firestoreService.consultar("articulos/tag").subscribe( (data) => {
           this.tag = data;
         })
-    
-      }
+        */
+       this.cardCollection.snapshotChanges().pipe(
+          map(actions => actions.map( a=> {
+            const data = a.payload.doc.data() as Article;
+            const tag = a.payload.doc.data().tag;
+          
+            return { tag }
+          }))
+        ).subscribe((data) => {
+          
+          data.map( (data)=> {
+         
+            console.log('tag?', data.tag);
+         
+            data.tag.map( (v) => {
+
+              this.tag.push(v);
+
+
+            })
+            console.log('this.tag', this.tag);
+            const uniqueSet = new Set(this.tag);
+            this.tag = [...uniqueSet];
+         })
+          
+        });
+          }
     leerNoticias() {
       this.noticias = this.cardCollection.snapshotChanges().pipe(
         map(actions => actions.map( a=> {
@@ -105,7 +130,34 @@ leerTags() {
 
   filtrarTag(event) {
 
-    this.noticias = this.afs.collection('articulos', ref=>
+    const exits = this.tag.includes('Reset');
+   // console.log(exits);
+   //this.tag.push('Reset');
+   //  this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+    if (exits) {
+     // this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+      this.tag = this.tag.slice(0, this.tag.length -1);
+    }
+    if (event != 'Reset') {
+      this.tag.push('Reset');
+      //this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+    }
+    if ( event == 'Reset' ) {
+                
+    // this.tag = this.tag.slice(0, this.tag.length -1);
+   this.noticias = this.afs.collection('articulos', ref => 
+       ref.where('categoria', '==', 'Helseforetak')
+     ).snapshotChanges()
+     .pipe(
+      map(actions => actions.map( a=> {
+        const data = a.payload.doc.data() as Article;
+        const id = a.payload.doc.id;
+        return { id, ...data}
+      }))
+      
+    )
+    } else { 
+    this.noticias = this.afs.collection('articulos', ref =>
     ref.where('tag','array-contains',event))
     .snapshotChanges()
     .pipe(
@@ -115,7 +167,7 @@ leerTags() {
         return { id, ...data}
       }))
     );
-
+    }
   }
 
 

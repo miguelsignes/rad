@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
     {
       title: 'Inspirasjon',
       url: '/inspirasjon',
-      icon: 'medkit'
+      icon: 'bulb'
     },
     {
       title: 'Favoritter',
@@ -138,6 +138,7 @@ export class AppComponent implements OnInit {
   this.readStorageName()
 
     this.nameValue$ = this.userService.nameSubject.asObservable();
+    console.log(this.nameValue$);
     this.nameValue$.subscribe(value => this.myName = value);
     console.log('My NAME', this.myName);
    

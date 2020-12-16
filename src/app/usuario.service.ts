@@ -28,12 +28,18 @@ export class UsuarioService {
 
   readStorage() {
 
-    const data = localStorage.getItem('name');
+
+
+    const data = localStorage.getItem('token');
     if ( data ) {
 
-      this.nameSubject.next(data);
+      this.nameSubject.next('Logg ut');
 
     }
+
+
+
+
   }
 
   removeStorage() {

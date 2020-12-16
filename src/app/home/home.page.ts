@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
     {
       title: 'Inspirasjon',
       url: '/inspirasjon',
-      icon: 'medkit'
+      icon: 'bulb-outline'
     },
     {
       title: 'Kontakt oss',
@@ -60,6 +60,8 @@ export class HomePage implements OnInit {
   ];
   
   noticias: Article[] = [];
+  favoritos: any = [];
+
   //private noticias: AngularFirestoreCollection<Article>;
 
   public nameSubject = new BehaviorSubject<String>('Logg inn');
@@ -111,30 +113,33 @@ export class HomePage implements OnInit {
     //if (firebase.auth().currentUser)
     
     this.isLoggedIn();
-   
-    
-    let favoritos = undefined;
-    favoritos = await this.storage.get('favoritos');
-    
-      if ( favoritos.length > 0 ) {
-      this.noticias = favoritos;
-      } else {
 
-        this.cardCollection.snapshotChanges().pipe(
-          map(actions => actions.map( a=> {
-            const data = a.payload.doc.data() as Article;
-            const id = a.payload.doc.id;
-        
-            return { id, ...data}
-          }))
-        ).subscribe( (data) => {
-          console.log(data);
-          this.noticias = data;
-        })
-    
-      }
-   
 
+    this.favoritos = await this.storage.get('favoritos');
+
+    if ( this.favoritos == null || this.favoritos.length == 0)
+    {
+
+      console.log('favoritos', this.favoritos)
+      this.cardCollection.snapshotChanges().pipe(
+        map(actions => actions.map( a=> {
+          const data = a.payload.doc.data() as Article;
+          const id = a.payload.doc.id;
+      
+          return { id, ...data}
+        }))
+      ).subscribe( (data) => {
+        console.log(data);
+        this.noticias = data;
+      })
+
+    }  else {
+      console.log('favoritos', this.favoritos)
+      this.noticias = this.favoritos;
+    }
+ 
+    
+    
     }
 
 

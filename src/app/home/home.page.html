@@ -1,14 +1,14 @@
-<ion-header  class="menu" class="ion-no-border">
-  <ion-toolbar color="danger">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+<ion-header class="menu" class="ion-no-border">
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
 
-  </ion-toolbar>
+    </ion-toolbar>
 
-  <div style="background-color:#5C8298 !important; height: 104px; text-align: center;  vertical-align: middle;">
- <!--   <ion-text class="textHeader"><ion-icon name="star" style="width:35px; height:35px;" style="color:#bbd336"></ion-icon>RÅD</ion-text> -->
-    <ion-img [src]='logo' style="width:180px; margin:0 auto"></ion-img>
+    <div style="background-color:#1f5270 !important; height: 104px; text-align: center;  vertical-align: middle;">
+        <!--   <ion-text class="textHeader"><ion-icon name="star" style="width:35px; height:35px;" style="color:#bbd336"></ion-icon>RÅD</ion-text> -->
+        <ion-img [src]='logo' style="width:180px; margin:0 auto"></ion-img>
     </div>
 </ion-header>
 
@@ -19,35 +19,41 @@
     </ion-toolbar>
   </ion-header>
   -->
-  <ion-content [fullscreen]="true">
-  <div style="margin-top:5px;">
-    <ion-grid>
-      <ion-row>
-<ion-col size="10"><ion-label class="labelFav">Favoritter</ion-label></ion-col>
-<ion-col size="2"><ion-label class="labelFav">Se alle</ion-label></ion-col>
-      </ion-row>
-    </ion-grid>
-    <ng-container *ngIf="noticias">
-    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" style="margin-bottom:20px;">
-     
-      <ion-slide *ngFor="let fav of noticias" style="width: 133px; margin-right: 5px; margin-left: 5px; padding: 0;">
-        <ion-col (click)="irNoticia(fav)">
-          <ion-img [src]="fav?.img" alt="Imagen en Favoritos" ></ion-img>
-          <ion-label class="labelText">{{fav?.title | slice:0:40 }} ...</ion-label>
-       
-        </ion-col>
-      </ion-slide>
-          </ion-slides>
-          </ng-container>
-  </div>
+<ion-content [fullscreen]="true">
+    <div style="margin-top:5px;">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="10">
+                    <ion-label class="labelFav">Favoritter</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-label class="labelFav">Se alle</ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ng-container *ngIf="noticias">
+            <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" style="margin-bottom:20px;">
 
-  <div class="scrollCards">
-    <div class="listCards" *ngFor="let p of appPages; let i = index">
-    <ion-card class="cardCat" [routerLink]="[p.url]" (click)="selectedIndex = i" routerDirection="root">
-      <ion-card-title class="cardText"><ion-label tabindex="selectedIndex" role="button">{{p.title }}</ion-label></ion-card-title>
-    </ion-card>   
+                <ion-slide *ngFor="let fav of noticias" style="width: 133px; margin-right: 5px; margin-left: 5px; padding: 0;">
+                    <ion-col (click)="irNoticia(fav)">
+                        <ion-img [src]="fav?.img" alt="Imagen en Favoritos"></ion-img>
+                        <ion-label class="labelText">{{fav?.title | slice:0:40 }} ...</ion-label>
+
+                    </ion-col>
+                </ion-slide>
+            </ion-slides>
+        </ng-container>
     </div>
-    <!-- 
+
+    <div class="scrollCards">
+        <div class="listCards" *ngFor="let p of appPages; let i = index">
+            <ion-card class="cardCat" [routerLink]="[p.url]" (click)="selectedIndex = i" routerDirection="root">
+                <ion-card-title class="cardText">
+                    <ion-label tabindex="selectedIndex" role="button">{{p.title }}</ion-label>
+                </ion-card-title>
+            </ion-card>
+        </div>
+        <!-- 
     <ion-card class="cardCat">
       <ion-card-title class="cardText">Helseforetak</ion-card-title>
     </ion-card>   
@@ -66,5 +72,5 @@
 
   </div>
   -->
-</div>
+    </div>
 </ion-content>

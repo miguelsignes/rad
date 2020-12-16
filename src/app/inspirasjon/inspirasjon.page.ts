@@ -18,6 +18,7 @@ import { DataLocalService } from '../servicios/data-local.service';
 import { Router } from '@angular/router';
 
 import { NavparamService } from '../navparam.service';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 
 //export interface Card { title: string; texto: string; categoria: string; img: string; insertada: Date; tag: Object; text: string  }
@@ -36,7 +37,7 @@ export class InspirasjonPage implements OnInit {
   public folder: string;
   searchTerm: string = "";
   public items: any;
-  tag:any;
+  tag:any = [];
 
   public favoritos = [];
 
@@ -75,21 +76,24 @@ export class InspirasjonPage implements OnInit {
           map(actions => actions.map( a=> {
             const data = a.payload.doc.data() as Article;
             const tag = a.payload.doc.data().tag;
-           
+          
             return { tag }
           }))
         ).subscribe((data) => {
           
           data.map( (data)=> {
          
-          
-            this.tag = data.tag;
-            /*
-            if ( data.tag.length > 0 ) {
-              this.tag.push('Reset');
-            }
-            */
-       
+            console.log('tag?', data.tag);
+         
+            data.tag.map( (v) => {
+
+              this.tag.push(v);
+
+
+            })
+            console.log('this.tag', this.tag);
+            const uniqueSet = new Set(this.tag);
+            this.tag = [...uniqueSet];
          })
           
         });

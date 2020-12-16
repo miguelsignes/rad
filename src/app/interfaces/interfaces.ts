@@ -7,6 +7,8 @@ export interface Article {
   texto: string;
   tag: Tag[];
   fav: boolean;
+  alt?:string;
+  desc?: string;
 }
 
 export interface Insertada {
