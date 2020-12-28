@@ -20,7 +20,7 @@
 
         <div>
             <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
-                <ion-slide *ngFor="let tags of tag" style="width:120px; margin-right: 5px; margin-left: 5px; padding: 0; ">
+                <ion-slide *ngFor="let tags of tag" style="width:auto; margin-right: 5px; margin-left: 5px; padding: 0; ">
                     <ion-col>
                         <ion-button color="light" size="full" block (click)="filtrarTag(tags)">{{ tags}}</ion-button>
 
@@ -47,13 +47,13 @@
         -->
             <ion-virtual-scroll [items]="noticias | async" approxItemHeight="150px">
                 <ion-item *virtualItem="let item" style="padding:0px; margin:0px" lines="none">
-                    <ion-card style="padding-left: 0px; flex-direction: row; margin-left:0px; margin-right:0px; height: 136px;">
+                    <ion-card style="padding-left: 0px; flex-direction: row; margin-left:0px; margin-right:0px; height: 136px;" (click)="gotoNoticia(item)">
                         <ion-row>
                             <ion-col col style="padding: 0px;" size=4>
                                 <ion-img [src]="item?.img" [alt]="item?.alt"></ion-img>
                             </ion-col>
                             <ion-col col style="padding: 0px;">
-                                <ion-card-content style="font-size:14px; font-weight: bold; padding-bottom: 0px; text-align: left;" (click)="gotoNoticia(item)" [innerHTML]="item?.title | slice:0:100 "></ion-card-content>
+                                <ion-card-content style="font-size:14px; font-weight: bold; padding-bottom: 0px; text-align: left;" [innerHTML]="item?.title | slice:0:100 "></ion-card-content>
                                 <p style="font-size: 14px; padding-top: 10px; padding-left:20px; padding-right: 12px; text-align: left;">{{item?.desc | slice:0:50}} ...</p>
                             </ion-col>
                         </ion-row>

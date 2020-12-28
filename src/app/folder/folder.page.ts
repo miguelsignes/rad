@@ -183,6 +183,7 @@ first() {
     this.latestEntry = data[data.length -1].doc;
     this._data.next(data);
   });
+  
 
 }
 next(event) {

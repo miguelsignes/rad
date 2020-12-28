@@ -22,9 +22,14 @@
 
     <ion-slides centeredSlides="true" style="display: flex; justify-content: center; align-items: center; width:80%; margin-bottom: 10px;" [options]="{ slidesPerView: 'auto', zoom: false  }">
 
-        <ion-slide *ngFor="let tags of data?.tag" style="height:35px; width:77px; margin-right: 5px; margin-left: 5px; display: block;">
+        <ion-slide *ngFor="let tags of data?.tag" style="width:auto; margin-right: 5px; margin-left: 5px;">
 
-            <ion-button class="mybtn" color="secondary" style="font-size: 10px;" expand="block">{{ tags }}</ion-button>
+            <ion-col>
+                <!--      <ion-button color="light" size="full" block (click)="filtrarTag(tags)">{{ tags }}</ion-button>-->
+                <ion-button class="mybtn" color="secondary" size="full" block>{{ tags }}</ion-button>
+            </ion-col>
+
+
 
         </ion-slide>
 

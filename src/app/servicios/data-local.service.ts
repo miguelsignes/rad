@@ -45,7 +45,7 @@ export class DataLocalService {
         mensaje = 'Fjernet fra favoritter'
     } else {
       this.noticias.push(noticia);
-      mensaje = 'Ingen favoritter lagret'
+      mensaje = 'Lagret i favoritter'
     }
     this.presentToast(mensaje);
     this.storage.set('favoritos', this.noticias);
