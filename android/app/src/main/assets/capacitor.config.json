@@ -1,18 +1,22 @@
 {
-  "appId": "com.ribarsl.rad",
-  "appName": "rad",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0,
-      "showSpinner": true,
-      "backgroundColor": "#000000"
+    "appId": "com.ribarsl.rad",
+    "appName": "RÅD",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "www",
+    "plugins": {
+        "SplashScreen": {
+            "launchShowDuration": 0,
+            "showSpinner": true,
+            "backgroundColor": "#000000"
+        },
+        "PushNotifications": {
+            "presentationOptions": ["badge", "sound", "alert"]
+        }
     },
-    "PushNotifications": {
-      "presentationOptions": ["badge", "sound", "alert"]
+    "cordova": {
+        "preferences": {
+            "YouTubeDataApiKey": "AIzaSyD7eqEM2eATYdeARvp9oKZwXe4HJOCJxSw"
+        }
     }
-  },
-  "cordova": {}
 }

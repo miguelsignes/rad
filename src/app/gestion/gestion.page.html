@@ -28,61 +28,8 @@
                 </ion-slide>
             </ion-slides>
 
-            <!--
 
-  <ion-grid fixed>
-  <ion-row>
-
-    <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12" style="padding: 0px;"
-              *ngFor="let noticia of noticias | async | filtro: searchTerm: 'title' ; let i = index">
-
-   <ion-card>
-
-  <ion-card-header>
-    <ion-card-subtitle>
-    
-      <div class="noticia-more">
-
-      </div>
-
-    </ion-card-subtitle>
-    <ion-card-title style="font-size: 24px;">{{ noticia.title }} </ion-card-title>
-  </ion-card-header>
-
-  <ion-img [src]="noticia?.img"
-           (click)="gotoNoticia(noticia)"
-            class="animated fadeIn fast"
-            ></ion-img>
-
-  <ion-card-content>
-    <p [innerHTML]="noticia?.texto | slice:0:100"> ...</p>
-  </ion-card-content>
-
-</ion-card>
-    
-    </ion-col>
-
-  </ion-row>
-</ion-grid>
--->
-            <!-- <app-noticias [noticias]="noticias"></app-noticias> -->
-
-            <!--
-            <ion-card *ngFor="let noticia of noticias | async |  filtro: searchTerm: 'title'; let i = index" style="padding-left: 0px; flex-direction: row;" size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12">
-                <ion-row>
-                    <ion-col col style="padding: 0px;" size=4>
-                  
-                        <ion-img [src]="noticia?.img"></ion-img>
-                    </ion-col>
-                    <ion-col col style="padding: 0px;">
-                        <ion-card-content style="font-size:14px; font-weight:bold; object-position:  left; display: flex; align-self: flex-start; text-align: left; padding-bottom: 0px;" (click)="gotoNoticia(noticia)" [innerHTML]="noticia?.title | slice:0:100"> ...</ion-card-content>
-             
-                    </ion-col>
-                </ion-row>
-            </ion-card>
-        -->
-
-            <ion-virtual-scroll [items]="noticias | async | filtro:searchTerm: 'title'" approxItemHeight="150px">
+            <ion-virtual-scroll [items]="noticias | async | filtro:searchTerm: 'texto'" approxItemHeight="150px">
                 <ion-item *virtualItem="let item" style="padding:0px; margin:0px" lines="none">
                     <ion-card style="padding-left: 0px; flex-direction: row; margin-left:0px; margin-right:0px; height: 136px;" (click)="gotoNoticia(item)">
                         <ion-row>
@@ -92,6 +39,7 @@
                             <ion-col col style="padding: 0px;">
                                 <ion-card-content style="font-size:14px; font-weight: bold; padding-bottom: 0px; text-align: left;" [innerHTML]="item?.title | slice:0:100 "></ion-card-content>
                                 <p style="font-size: 14px; padding-top: 10px; padding-left:20px; padding-right: 12px; text-align: left;">{{item?.desc | slice:0:50}} ...</p>
+                                <p style="display:none;">{{item?.texto || slice:0:50}</p>
                             </ion-col>
                         </ion-row>
                     </ion-card>

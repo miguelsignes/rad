@@ -26,6 +26,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import  { NavparamService } from './navparam.service';
 
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,12 +39,17 @@ import  { NavparamService } from './navparam.service';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+driverOrder: ['localstorage']
+    })
   ],
   providers: [
+    YoutubeVideoPlayer,
     StatusBar,
     SplashScreen,
     NavparamService,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

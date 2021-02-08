@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NavPageRoutingModule } from './nav-routing.module';
 
 import { NavPage } from './nav.page';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NavPageRoutingModule
+    NavPageRoutingModule,
+    PipesModule
   ],
   declarations: [NavPage]
 })

@@ -9,6 +9,7 @@ import { FavsPageRoutingModule } from './favs-routing.module';
 import { FavsPage } from './favs.page';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
+
 @NgModule({
   imports: [
     ComponentsModule,

@@ -4,7 +4,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 
 // FIREBASE SERVICE 
 import { FirestoreService } from '../servicios/firestore.service';
-import { AngularFirestore, AngularFirestoreCollection, validateEventsArray } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 //SEARCH BAR DATA SERVICE
 import { DataService } from '../servicios/data.service';
@@ -23,8 +23,6 @@ import { NavparamService } from '../navparam.service';
 
 //export interface Card { title: string; texto: string; categoria: string; img: string; insertada: Date; tag: Object; text: string  }
 export interface CardId extends Article { id: string; }
-
-
 export interface Users { nombre: string, email: string, favoritos: Object }
 
 
@@ -48,8 +46,7 @@ export class FolderPage implements OnInit {
   private cardCollection: AngularFirestoreCollection<Article>;
 
   //cards: Observable<CardId[]>;
-  private userCollection: AngularFirestoreCollection<Users>;
-  user:Observable<Users>;
+
 
   noticias: Observable<CardId[]>;
   noticiaFav: Article[] = [];
@@ -71,40 +68,17 @@ export class FolderPage implements OnInit {
 
      ) {
    
-/*
-    this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
-      return ref.where('categoria', '==', 'Kommuner/fylkeskommuner')
-    });
-    */
-    this.userCollection = this.afs.collection<Users>('Users');
     
     this.cardCollection = this.afs.collection<Article>('articulos/', ref=> {
       return ref.where('categoria', '==', 'Kommuner/fylkeskommuner')
     });
   
    }
-/*
-   getArticles() {
-     let ref = this.afs.collection<Article>('articulos/', ref=> {
-      return ref.where('categoria', '==', 'Kommuner/fylkeskommuner').limit(4).get()
-      .then( (snap) => {
-        this.start = snap.docs[snap.docs.length - 1]
-   
-      });
-     })
 
-
-
-    }
-*/
 
 
 leerTags() {
-  /*
-  this.firestoreService.consultar("articulos/tag").subscribe( (data) => {
-    this.tag = data;
-  })
-  */
+
  this.cardCollection.snapshotChanges().pipe(
     map(actions => actions.map( a=> {
       const data = a.payload.doc.data() as Article;
@@ -116,7 +90,7 @@ leerTags() {
     
     data.map( (data)=> {
    
-      console.log('tag?', data.tag);
+  //    console.log('tag?', data.tag);
    
       data.tag.map( (v) => {
 
@@ -124,7 +98,7 @@ leerTags() {
 
 
       })
-      console.log('this.tag', this.tag);
+  //    console.log('this.tag', this.tag);
       const uniqueSet = new Set(this.tag);
       this.tag = [...uniqueSet];
    })
@@ -148,14 +122,6 @@ leerTags() {
  
 
 
-filtrarFav() {
-
-   // this.noticiaFav.
-   // let filtro = this.noticiaFav.
-  }
-  
-//leerNoticias() {
-  //this.noticias = this.cardCollection.snapshotChanges()
   getCollection(ref, queryFn?): Observable<any[]> {
   return this.afs.collection(ref, queryFn).snapshotChanges()
   
@@ -208,35 +174,13 @@ next(event) {
 }
 
 
-  /*
 
- leerNoticias() {
-      let fav = false;
-     
-      this.noticias = this.cardCollection.snapshotChanges()
-       .pipe(
-        map(actions => actions.map( a => {
-
-      
-          const data = a.payload.doc.data() as Article;
-          const id = a.payload.doc.id;
-         
-          return {id, ...data} 
-          
-        })
-        )
-
-      );
-
-    }
-    
-*/
 
   ngOnInit() {
 
     this.cargarFavoritos()
     this.leerTags();
-    this.filtrarArticulos();
+ //   this.filtrarArticulos();
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
     this.first()
    // this.leerNoticias()
@@ -244,22 +188,11 @@ next(event) {
 
   }
 
-
-
-  // En esta función deberiamos filtrar con el searchbar los articulos que han salido.
-
-  // Search Bar Implementador de busquedas o Filtro
   
-  filtrarArticulos() {
+  filtrarArticulos(event) {
+
+    console.log(this.searchTerm);
     this.items = this.dataService.filtrarItems(this.searchTerm);
-  }
-
- 
-
-  clickFav(item) {
-    
-    this.dataLocalService.guardarNoticia(item);
-    
   }
 
 

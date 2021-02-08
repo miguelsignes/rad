@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy  } from '@angular/core';
 
 import { MenuController, Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -128,7 +128,10 @@ export class AppComponent implements OnInit {
   this.userService.readStorage()
   }
 
-  
+  ngOnDestroy() {
+
+    this.userService.nameSubject.unsubscribe()
+  } 
 
   ngOnInit() {
 
@@ -137,6 +140,7 @@ export class AppComponent implements OnInit {
 
   this.readStorageName()
 
+  console.log('Se repite esto?')
     this.nameValue$ = this.userService.nameSubject.asObservable();
     console.log(this.nameValue$);
     this.nameValue$.subscribe(value => this.myName = value);

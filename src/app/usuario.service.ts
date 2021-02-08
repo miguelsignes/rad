@@ -8,8 +8,9 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { NavController } from '@ionic/angular';
-
-
+import * as firebase from "firebase/app";
+import 'firebase/auth';
+import { AlerterrorService } from './alerterror.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UsuarioService {
 
   public nameSubject = new BehaviorSubject<String>('Logg inn');
 
-  constructor(private afu: AngularFireAuth, private navCtrl: NavController, private afs: AngularFirestore) {
+  constructor(private afu: AngularFireAuth, private navCtrl: NavController, private afs: AngularFirestore, private alert: AlerterrorService) {
 
    
    }
@@ -46,26 +47,43 @@ export class UsuarioService {
 
     
 
-    this.afu.signOut();
+  
     localStorage.removeItem('name');
     localStorage.removeItem('token');
     
    this.nameSubject.next('Logg inn');
 
     
-    this.navCtrl.navigateRoot('/home', { animated: true })
-
+    
   }
 
- async logout() {
-    await this.afu.signOut()
-      .then( () => {
+  logout() {
+    
         
+    this.nameSubject.next('Logg inn')
+   
+        
+
+     
+
+    this.afu.signOut()
+      .then( () => {
+
+ 
+        let mensaje = 'Usuario desconecta correctamente';
+     
+        localStorage.removeItem('favoritos');   
         localStorage.removeItem('token');
         localStorage.removeItem('name');
-        this.nameSubject.next('Logg inn');
-        console.log(this.nameSubject);
-      })
+    //    console.log(this.nameSubject);
+      this.alert.presentAlert(mensaje);
+       this.navCtrl.navigateRoot('/', { animated: true })
+      
+      }).catch ( (error) => {
+        let mensaje = 'Ha ocurrido un error';
+        this.alert.presentAlert(mensaje);
+        console.log('error',error)
+      } )
   }
 
   login(email: string, password:string)  {
@@ -82,8 +100,8 @@ export class UsuarioService {
         localStorage.setItem('name', result.user.displayName);
       });
    
-    }).catch ( result => {
-      console.log('Hay algún error o No se encontró el usuario')
+    }).catch ( error => {
+      console.log('Hay algún error o No se encontró el usuario', error)
     })
 
   }
@@ -114,8 +132,7 @@ export class UsuarioService {
 
   createUserStats(id, email) {
    
-    console.log(id);
-    console.log(email);
+ 
 
     this.data.email = email;
     this.data.isAdmin = false;

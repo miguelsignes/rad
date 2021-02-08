@@ -41,4 +41,10 @@
  -->
     <div style="padding-left: 20px; padding-right:10px; font-family: 'OpenSans';" [innerHTML]="data?.texto"></div>
 
+    <!-- The <iframe> (and video player) will replace this <div> tag. -->
+
+    <ion-img *ngIf="data.video" (click)="onClickVideo(data.video)" [src]="imgSrc" style="width:98%; display: box; padding:10px; align-self: center;"></ion-img>
+
+
+
 </ion-content>

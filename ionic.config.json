@@ -1,7 +1,7 @@
 {
-  "name": "rad",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
+    "name": "RÅD",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "angular"
 }

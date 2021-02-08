@@ -18,7 +18,7 @@ import { DataLocalService } from '../servicios/data-local.service';
 import { Router } from '@angular/router';
 
 import { NavparamService } from '../navparam.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+
 
 
 //export interface Card { title: string; texto: string; categoria: string; img: string; insertada: Date; tag: Object; text: string  }
@@ -35,7 +35,7 @@ export interface Users { nombre: string, email: string, favoritos: Object }
 export class InspirasjonPage implements OnInit {
 
   public folder: string;
-  searchTerm: string = "";
+  public searchTerm: string = "";
   public items: any;
   tag:any = [];
 
@@ -44,9 +44,7 @@ export class InspirasjonPage implements OnInit {
 
   private cardCollection: AngularFirestoreCollection<Article>;
 
-  //cards: Observable<CardId[]>;
-  private userCollection: AngularFirestoreCollection<Users>;
-  user:Observable<Users>;
+
 
   noticias: Observable<CardId[]>;
 
@@ -62,16 +60,12 @@ export class InspirasjonPage implements OnInit {
       this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
         return ref.where('categoria', '==', 'Inspirasjon')
       });
-      this.userCollection = this.afs.collection<Users>('Users');
+   
 
       }
     
       leerTags() {
-        /*
-        this.firestoreService.consultar("articulos/tag").subscribe( (data) => {
-          this.tag = data;
-        })
-        */
+
        this.cardCollection.snapshotChanges().pipe(
           map(actions => actions.map( a=> {
             const data = a.payload.doc.data() as Article;
@@ -83,7 +77,7 @@ export class InspirasjonPage implements OnInit {
           
           data.map( (data)=> {
          
-            console.log('tag?', data.tag);
+          //  console.log('tag?', data.tag);
          
             data.tag.map( (v) => {
 
@@ -91,7 +85,7 @@ export class InspirasjonPage implements OnInit {
 
 
             })
-            console.log('this.tag', this.tag);
+   //         console.log('this.tag', this.tag);
             const uniqueSet = new Set(this.tag);
             this.tag = [...uniqueSet];
          })
@@ -124,10 +118,8 @@ export class InspirasjonPage implements OnInit {
   
   filtrarArticulos(event) {
 
-    
-    this.searchTerm = event.detail.value;
-    console.log(this.searchTerm);
-     
+
+    this.items = this.dataService.filtrarItems(this.searchTerm);
 
   }
 
@@ -135,20 +127,17 @@ export class InspirasjonPage implements OnInit {
   filtrarTag(event) {
 
     const exits = this.tag.includes('Reset');
-   // console.log(exits);
-   //this.tag.push('Reset');
-   //  this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+
     if (exits) {
-     // this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+ 
       this.tag = this.tag.slice(0, this.tag.length -1);
     }
     if (event != 'Reset') {
       this.tag.push('Reset');
-      //this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+     
     }
     if ( event == 'Reset' ) {
-                
-    // this.tag = this.tag.slice(0, this.tag.length -1);
+
    this.noticias = this.afs.collection('articulos', ref => 
        ref.where('categoria', '==', 'Inspirasjon')
      ).snapshotChanges()
@@ -174,12 +163,6 @@ export class InspirasjonPage implements OnInit {
     }
   }
 
-
-  clickFav(item) {
-   
-    this.dataLocalService.guardarNoticia(item);
-
-  }
 
   
   gotoNoticia(noticia: Article) {

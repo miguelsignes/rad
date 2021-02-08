@@ -22,8 +22,6 @@ import { Router } from '@angular/router';
 export interface CardId extends Article { id: string; }
 
 
-export interface Users { nombre: string, email: string, favoritos: Object }
-
 
 
 @Component({
@@ -43,13 +41,11 @@ export class NavPage implements OnInit {
 
   private cardCollection: AngularFirestoreCollection<Article>;
 
-  //cards: Observable<CardId[]>;
-  private userCollection: AngularFirestoreCollection<Users>;
-  user:Observable<Users>;
+
+ 
 
   noticias: Observable<CardId[]>;
   noticiaFav: Article[] = [];
- //5 noticiaFav: Observable<CardId[]>;
   estrella = 'bookmark-outline';
   searchTerm: string = "";
 
@@ -67,16 +63,12 @@ export class NavPage implements OnInit {
       this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
         return ref.where('categoria', '==', 'NAV')
       });
-    this.userCollection = this.afs.collection<Users>('Users');
+  
    
    }
 
   leerTags() {
-  /*
-    this.firestoreService.consultar("tags").subscribe( (data) => {
-      this.tag = data;
-    })
-*/
+
 this.cardCollection.snapshotChanges().pipe(
   map(actions => actions.map( a=> {
     const data = a.payload.doc.data() as Article;
@@ -88,7 +80,7 @@ this.cardCollection.snapshotChanges().pipe(
   
   data.map( (data)=> {
  
-    console.log('tag?', data.tag);
+  //  console.log('tag?', data.tag);
  
     data.tag.map( (v) => {
 
@@ -96,7 +88,7 @@ this.cardCollection.snapshotChanges().pipe(
 
 
     })
-    console.log('this.tag', this.tag);
+ //   console.log('this.tag', this.tag);
     const uniqueSet = new Set(this.tag);
     this.tag = [...uniqueSet];
  })
@@ -105,6 +97,7 @@ this.cardCollection.snapshotChanges().pipe(
   }
   
   async cargarFavoritos() {
+
     const favoritos = await this.storage.get('favoritos');
            if ( favoritos) {
             this.noticiaFav = favoritos;
@@ -114,8 +107,7 @@ this.cardCollection.snapshotChanges().pipe(
 
   async existeArticulo(id:string) {
        await this.cargarFavoritos();
-//    const existe = this.noticiaFav.find( noti => noti.id === id );
-  //   return (existe)? true : false;
+
   }
  
 
@@ -127,12 +119,6 @@ this.cardCollection.snapshotChanges().pipe(
         map(actions => actions.map( a => {
           const data = a.payload.doc.data() as Article;
           const id = a.payload.doc.id;
-         
-   //      this.existeArticulo(id)
-     //    .then ( existe => fav = true )
-        //    .then( existe => this.estrella = (existe) ? 'bookmark' : 'bookmark-outline');
-
-          //const fav = true;
 
             return {id, ...data} 
           
@@ -163,7 +149,7 @@ this.cardCollection.snapshotChanges().pipe(
   filtrarArticulos(event) {
     
     this.searchTerm = event.detail.value;
-    console.log(this.searchTerm);
+   
      
 
   }
@@ -171,20 +157,18 @@ this.cardCollection.snapshotChanges().pipe(
   filtrarTag(event) {
 
     const exits = this.tag.includes('Reset');
-   // console.log(exits);
-   //this.tag.push('Reset');
-   //  this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+
     if (exits) {
-     // this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+
       this.tag = this.tag.slice(0, this.tag.length -1);
     }
     if (event != 'Reset') {
       this.tag.push('Reset');
-      //this.tag = this.tag.splice(this.tag.indexOf('Reset',1));
+   
     }
     if ( event == 'Reset' ) {
                 
-    // this.tag = this.tag.slice(0, this.tag.length -1);
+ 
    this.noticias = this.afs.collection('articulos', ref => 
        ref.where('categoria', '==', 'NAV')
      ).snapshotChanges()
@@ -211,11 +195,7 @@ this.cardCollection.snapshotChanges().pipe(
   }
  
 
-  clickFav(item) {
-    
-    this.dataLocalService.guardarNoticia(item);
-    
-  }
+
 
 
   gotoNoticia(noticia: Article) {

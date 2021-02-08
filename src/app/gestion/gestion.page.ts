@@ -43,8 +43,6 @@ export class GestionPage implements OnInit {
   private cardCollection: AngularFirestoreCollection<Article>;
 
   //cards: Observable<CardId[]>;
-  private userCollection: AngularFirestoreCollection<Users>;
-  user:Observable<Users>;
 
   noticias: Observable<CardId[]>;
 
@@ -60,7 +58,7 @@ export class GestionPage implements OnInit {
       this.cardCollection = this.afs.collection<Article>('articulos/', ref=>{
         return ref.where('categoria', '==', 'Helseforetak')
       });
-      this.userCollection = this.afs.collection<Users>('Users');
+     
 
       }
       leerTags() {
@@ -80,7 +78,7 @@ export class GestionPage implements OnInit {
           
           data.map( (data)=> {
          
-            console.log('tag?', data.tag);
+        //    console.log('tag?', data.tag);
          
             data.tag.map( (v) => {
 
@@ -88,7 +86,7 @@ export class GestionPage implements OnInit {
 
 
             })
-            console.log('this.tag', this.tag);
+     //       console.log('this.tag', this.tag);
             const uniqueSet = new Set(this.tag);
             this.tag = [...uniqueSet];
          })
@@ -171,11 +169,6 @@ export class GestionPage implements OnInit {
   }
 
 
-  clickFav(item) {
-   
-    this.dataLocalService.guardarNoticia(item);
-
-  }
 
   gotoNoticia(noticia: Article) {
 

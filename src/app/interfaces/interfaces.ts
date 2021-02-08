@@ -9,6 +9,7 @@ export interface Article {
   fav: boolean;
   alt?:string;
   desc?: string;
+  video?:string;
 }
 
 export interface Insertada {

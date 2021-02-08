@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../interfaces/interfaces';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsuarioService } from '../../usuario.service';
-import { IonSlides, NavController } from '@ionic/angular';
+import {  NavController } from '@ionic/angular';
+import { DataLocalService } from './../../servicios/data-local.service';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-logout',
@@ -10,16 +11,30 @@ import { IonSlides, NavController } from '@ionic/angular';
 })
 export class LogoutPage implements OnInit {
 
-  constructor(private usuarioService: UsuarioService, private navCtrl: NavController) { }
+  unsubscribe:any;
+
+  constructor(private usuarioService: UsuarioService, private navCtrl: NavController, public dataLocalService: DataLocalService, private afs:AngularFirestore) { }
 
   ngOnInit() {
   }
 
+  ionViewDidLeave	() {
+    console.log('ondetrsoy')
+    this.unsubscribe()
+  }
 
-async  logout() {
+ logout() {
  //   this.usuarioService.removeStorage()
-await  this.usuarioService.logout();
-  this.navCtrl.navigateRoot('/', { animated: true})
+
+  this.unsubscribe = this.afs.collection("dataSaved").ref.onSnapshot( (data) =>{
+    console.log(data)
+  })
+
+  this.usuarioService.logout();
+
+
+  //this.dataLocalService.removeListener()
+  //this.navCtrl.navigateRoot('/', { animated: true})
   console.log('OK')
  
   
