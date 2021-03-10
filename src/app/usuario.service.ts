@@ -29,8 +29,6 @@ export class UsuarioService {
 
   readStorage() {
 
-
-
     const data = localStorage.getItem('token');
     if ( data ) {
 
@@ -39,14 +37,9 @@ export class UsuarioService {
     }
 
 
-
-
   }
 
   removeStorage() {
-
-    
-
   
     localStorage.removeItem('name');
     localStorage.removeItem('token');
